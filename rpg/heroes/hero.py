@@ -57,6 +57,12 @@ class Hero(object):
 
     # cleanly prints stats
     def print_stats(self):
+        print "NAME : %s" % self.name
         print "LEVEL: %s" % self.level
         for k, v in sorted(self.stats.iteritems()):
             print "%s: %s" % (k, v)
+
+
+    # raw damage calculations
+    def deal_damage(self):
+        return self.stats['STR'] + int(.5 * self.stats['AGI'])

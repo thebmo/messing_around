@@ -1,7 +1,8 @@
-from Monster import Monster as Monster
+from monster import Monster
+
 
 class Slime(Monster):
-    
+
     def __init__(
         self,
         name='Slime',
