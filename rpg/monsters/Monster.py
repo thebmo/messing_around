@@ -19,5 +19,17 @@ class Monster(object):
         self.stats = stats
         self.is_dead = is_dead
 
+
+    def __str__(self):
+        return self.name
+
+
+    def __ref__(self):
+        return self.name
+
+
     def take_damage(self, damage):
         self.hp -= damage
+        if self.hp < 1:
+            self.is_dead = True
+

@@ -12,7 +12,7 @@ class Slime(Monster):
         is_dead=False,
         HLevel=0,
         ):
-        
+
         self.name = name
         self.hp = int(hp + (.5 * HLevel))
         self.level = level + HLevel

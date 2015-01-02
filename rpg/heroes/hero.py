@@ -1,9 +1,10 @@
-from collections import OrderedDict
+# from collections import OrderedDict
 
 
 # Basic Hero Class Object
 class Hero(object):
     
+    # stats, stat growth, and stat mods
     stats = {
         'STR': 0,
         'AGI': 0,
@@ -13,18 +14,35 @@ class Hero(object):
         'max_hp': 0,
         'max_ap': 0
         }
-
+    
+    growth = {
+        'STR': 0,
+        'AGI': 0,
+        'INT': 0,
+        'CHA': 0,
+        'LCK': 0,
+        'max_hp': 0,
+        'max_ap': 0
+        }
+    
+    CLASS = 'Hero'
+    
+    STR_MOD = 1
+    AGI_MOD = 1
+    INT_MOD = 1
+    
+    # end stats, stat growth, and stat mods
 
     # when the hero levels up
     def level_up(self):
         self.level += 1
-        self.stats['STR'] += 2
-        self.stats['AGI'] += 1
-        self.stats['INT'] += 1
-        self.stats['CHA'] += 1
-        self.stats['LCK'] += 1
-        self.stats['max_hp'] += 3
-        self.stats['max_ap'] += 2
+        self.stats['STR'] += self.growth['STR']
+        self.stats['AGI'] += self.growth['AGI']
+        self.stats['INT'] += self.growth['INT']
+        self.stats['CHA'] += self.growth['CHA']
+        self.stats['LCK'] += self.growth['LCK']
+        self.stats['max_hp'] += self.growth['max_hp']
+        self.stats['max_ap'] += self.growth['max_ap']
 
 
     # initializes the hero
@@ -65,4 +83,9 @@ class Hero(object):
 
     # raw damage calculations
     def deal_damage(self):
-        return self.stats['STR'] + int(.5 * self.stats['AGI'])
+        return self.stats['STR'] + int((.5 * self.AGI_MOD) * self.stats['AGI'])
+
+        
+    def take_damage(self, raw_damage):
+        damage = raw_damage - int(.5 * self.stats['AGI'])
+        return damage if damage >=0 else 0
