@@ -1,8 +1,14 @@
 # from collections import OrderedDict
-
+from exp import exp_to_next_level
 
 # Basic Hero Class Object
 class Hero(object):
+    
+    # A chart of required xp to reach next level as list.
+    # Uses index as current level
+    # ex: Level 1 hero
+    #   exp_to_next_level[self.level]
+    exp_to_next_level = exp_to_next_level
     
     # stats, stat growth, and stat mods
     stats = {
@@ -31,6 +37,7 @@ class Hero(object):
     AGI_MOD = 1
     INT_MOD = 1
     
+    EXP = 0    
     # end stats, stat growth, and stat mods
 
     # when the hero levels up
@@ -75,10 +82,13 @@ class Hero(object):
 
     # cleanly prints stats
     def print_stats(self):
-        print "NAME : %s" % self.name
+        print "\nNAME : %s" % self.name
         print "LEVEL: %s" % self.level
+        print "CLASS: %s" % self.CLASS
         for k, v in sorted(self.stats.iteritems()):
             print "%s: %s" % (k, v)
+        print 'EXP   : %s' % self.EXP
+        print 'NEEDED: %s' % self.exp_to_next_level[self.level]
 
 
     # raw damage calculations
