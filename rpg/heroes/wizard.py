@@ -3,6 +3,15 @@ from hero import Hero
 
 class Wizard(Hero):
 
+    stats = {
+        'STR': 0,
+        'AGI': 0,
+        'INT': 0,
+        'CHA': 0,
+        'LCK': 0,
+        'max_hp': 0,
+        'max_ap': 0
+        }
 
     growth = {
         'STR': 1,

@@ -2,10 +2,19 @@ from hero import Hero
 
 class Cleric(Hero):
 
+    stats = {
+        'STR': 0,
+        'AGI': 0,
+        'INT': 0,
+        'CHA': 0,
+        'LCK': 0,
+        'max_hp': 0,
+        'max_ap': 0
+        }
 
     growth = {
         'STR': 2,
-        'AGI': 2,
+        'AGI': 1,
         'INT': 2,
         'CHA': 1,
         'LCK': 1,
