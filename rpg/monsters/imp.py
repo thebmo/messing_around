@@ -1,17 +1,17 @@
 from monster import Monster
 
 
-class Slime(Monster):
+class Imp(Monster):
 
     def __init__(
         self,
-        name='Slime',
-        max_hp=5,
-        max_ap=0,
+        name='Imp',
+        max_hp=6,
+        max_ap=1,
         level=1,
         is_dead=False,
-        exp=1,
-        damage=1
+        exp=2,
+        damage=2
         ):
 
         self.name = name
