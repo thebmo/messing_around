@@ -11,25 +11,7 @@ class Hero(object):
     exp_to_next_level = exp_to_next_level
     
     # stats, stat growth, and stat mods
-    stats = {
-        'STR': 0,
-        'AGI': 0,
-        'INT': 0,
-        'CHA': 0,
-        'LCK': 0,
-        'max_hp': 0,
-        'max_ap': 0
-        }
-    
-    growth = {
-        'STR': 0,
-        'AGI': 0,
-        'INT': 0,
-        'CHA': 0,
-        'LCK': 0,
-        'max_hp': 0,
-        'max_ap': 0
-        }
+
     
     CLASS = 'Hero'
     
@@ -50,7 +32,8 @@ class Hero(object):
         self.stats['LCK'] += self.growth['LCK']
         self.stats['max_hp'] += self.growth['max_hp']
         self.stats['max_ap'] += self.growth['max_ap']
-
+        self.hp += self.growth['max_hp']
+        self.ap += self.growth['max_ap']
 
     # initializes the hero
     def __init__(self,
@@ -63,21 +46,40 @@ class Hero(object):
 
         self.name = name
         self.level = level
-        self.stats['max_hp'] = max_hp
-        self.stats['max_ap'] = max_ap
-        self.hp = max_hp
-        self.ap = max_ap
         self.is_dead = is_dead
+        
+        self.growth = {
+            'STR': 0,
+            'AGI': 0,
+            'INT': 0,
+            'CHA': 0,
+            'LCK': 0,
+            'max_hp': 0,
+            'max_ap': 0
+            }
 
-        # if no level is selected, this generates level 1
-        if self.level == 0:
-            self.level_up()
+        self.stats = {
+            'STR': 0,
+            'AGI': 0,
+            'INT': 0,
+            'CHA': 0,
+            'LCK': 0,
+            'max_hp': 0,
+            'max_ap': 0
+            }
 
-        # levels up hero to designated level
-        else:
-            for i in range(0, level):
-                self.level_up()
-            self.level-=level
+        self.hp = self.stats['max_hp']
+        self.ap = self.stats['max_ap']
+        
+        # # if no level is selected, this generates level 1
+        # if self.level == 0:
+            # self.level_up()
+
+        # # levels up hero to designated level
+        # else:
+            # for i in range(0, level):
+                # self.level_up()
+            # self.level-=level
 
 
     # cleanly prints stats
