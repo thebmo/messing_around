@@ -97,7 +97,23 @@ class Hero(object):
     def deal_damage(self):
         return self.stats['STR'] + int((.5 * self.AGI_MOD) * self.stats['AGI'])
 
-        
+
+    # takes raw damage and applies modifiers, then
+    # subtracts from hero's hp
     def take_damage(self, raw_damage):
         damage = raw_damage - int(.5 * self.stats['AGI'])
-        return damage if damage >=0 else 0
+        
+        if damage > 1:
+            self.hp -= damage
+            self.check_for_death()
+
+
+    # checks if hero is dead and makes adjustments
+    def check_for_death(self):
+        if self.hp <=0:
+            self.is_dead = True
+            self.hp = 0
+            
+
+    # def cast_spell(self, spell):
+        
