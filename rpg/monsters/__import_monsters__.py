@@ -19,7 +19,9 @@ def main():
     except:
         print 'File did not exist, creating file'
         pass
-        
+    
+    print 'Writing: %s' % monsters
+    
     with open(init, 'w') as I:
         all = '__all__ = %s\n' % monsters
         I.write(all)
