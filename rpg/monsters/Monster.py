@@ -1,3 +1,6 @@
+from random import randrange
+
+
 class Monster(object):
     """
         basic moster class
@@ -41,6 +44,27 @@ class Monster(object):
             self.is_dead = True
 
 
+    # checks if hero is dead and makes adjustments
+    def check_for_death(self):
+        if self.hp <=0:
+            self.is_dead = True
+            self.hp = 0
+
+            
+    # chooses target from list of targets
+    # returns live target's index
+    def choose_target(self, targets):
+        targeting = True
+        while(targeting):
+            r = randrange(0, 100)
+            t = (r / 25 )
+
+            if not targets[t].is_dead:
+                return t
+        
+            
+            
+    # deals damage
     def deal_damage(self):
         return self.damage
         
