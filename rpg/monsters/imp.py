@@ -15,5 +15,5 @@ class Imp(Monster):
         'max_ap': 1,
         'damage': 2,
         'level': 2,
-        'exp': 1,
+        'exp': 2,
         }
