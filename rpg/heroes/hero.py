@@ -19,6 +19,16 @@ class Hero(object):
     AGI_MOD = 1
     INT_MOD = 1
     
+    growth = {
+        'STR': 0,
+        'AGI': 0,
+        'INT': 0,
+        'CHA': 0,
+        'LCK': 0,
+        'max_hp': 0,
+        'max_ap': 0
+    }
+
     EXP = 0    
     # end stats, stat growth, and stat mods
 
@@ -39,7 +49,7 @@ class Hero(object):
     def __init__(self,
         name='Bmo',
         level=0,
-        max_hp=2,
+        max_hp=3,
         max_ap=0,
         is_dead=False,
         ):
@@ -48,16 +58,6 @@ class Hero(object):
         self.level = level
         self.is_dead = is_dead
         
-        self.growth = {
-            'STR': 0,
-            'AGI': 0,
-            'INT': 0,
-            'CHA': 0,
-            'LCK': 0,
-            'max_hp': 0,
-            'max_ap': 0
-            }
-
         self.stats = {
             'STR': 0,
             'AGI': 0,
@@ -71,24 +71,19 @@ class Hero(object):
         self.hp = self.stats['max_hp']
         self.ap = self.stats['max_ap']
         
-        # # if no level is selected, this generates level 1
-        # if self.level == 0:
-            # self.level_up()
-
-        # # levels up hero to designated level
-        # else:
-            # for i in range(0, level):
-                # self.level_up()
-            # self.level-=level
-
 
     # cleanly prints stats
     def print_stats(self):
         print "\nNAME : %s" % self.name
         print "LEVEL: %s" % self.level
         print "CLASS: %s" % self.CLASS
-        for k, v in sorted(self.stats.iteritems()):
-            print "%s: %s" % (k, v)
+        print 'STR: %s' % self.stats['STR']
+        print 'AGI: %s' % self.stats['AGI']
+        print 'INT: %s' % self.stats['INT']
+        print 'CHA: %s' % self.stats['CHA']
+        print 'LCK: %s' % self.stats['LCK']
+        print 'HP: %s/%s' % (self.hp, self.stats['max_hp'])
+        print 'AP: %s/%s' % (self.ap, self.stats['max_ap'])
         print 'EXP   : %s' % self.EXP
         print 'NEEDED: %s' % self.exp_to_next_level[self.level]
 
