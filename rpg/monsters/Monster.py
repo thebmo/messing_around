@@ -5,29 +5,33 @@ class Monster(object):
     """
         basic moster class
     """
-
+    NAME = 'Monster'
+    
+    STATS = {
+        'STR': 0,
+        'AGI': 0,
+        'INT': 0,
+        'CHA': 0,
+        'LCK': 0,
+        'max_hp': 0,
+        'max_ap': 0,
+        'damage': 0,
+        'level': 0,
+        'exp': 0,
+        }
 
     def __init__(
         self,
-        name='Juju',
-        max_hp=99999,
-        max_ap=999,
-        level=99,
         is_dead=False,
-        exp=0,
-        damage=999
         ):
 
-        self.name = name
-        self.max_hp = max_hp
-        self.hp = max_hp
-        self.max_ap = max_ap
-        self.ap = max_ap
-        self.level = level
-        self.stats = stats
+        self.name = self.NAME
+        self.stats = self.STATS
         self.is_dead = is_dead
-        self.exp = exp
-        self.damage=damage
+        
+        self.hp = self.stats['max_hp']
+        self.ap = self.stats['max_ap']
+
 
 
     def __str__(self):
