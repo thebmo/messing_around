@@ -10,7 +10,7 @@ class Hero(object):
     #   exp_to_next_level[self.level]
     exp_to_next_level = exp_to_next_level
     
-    # stats, stat growth, and stat mods
+    # stats, spells, stat growth, and stat mods
 
     
     CLASS = 'Hero'
@@ -28,9 +28,18 @@ class Hero(object):
         'max_hp': 0,
         'max_ap': 0
     }
+    
+    # class spells stored in a dict per class
+    # spells: { 'name': rank }
+    class_spells = {
+        'Fire': 0,
+        'Ice': 0,
+        'Heal': 0,
+        }
 
     EXP = 0    
-    # end stats, stat growth, and stat mods
+    # end stats, spells, stat growth, and stat mods
+
 
     # when the hero levels up
     def level_up(self):
@@ -44,6 +53,13 @@ class Hero(object):
         self.stats['max_ap'] += self.growth['max_ap']
         self.hp += self.growth['max_hp']
         self.ap += self.growth['max_ap']
+        
+        # hero elemental strengths / weakness
+        self.HALV = []
+        self.NULL = []
+        self.ABSB = []
+        self.WEAK = []
+        
 
     # initializes the hero
     def __init__(self,
@@ -70,6 +86,7 @@ class Hero(object):
 
         self.hp = self.stats['max_hp']
         self.ap = self.stats['max_ap']
+        self.spells = self.class_spells
         
 
     # cleanly prints stats
@@ -111,4 +128,34 @@ class Hero(object):
             
 
     # def cast_spell(self, spell):
-        
+    
+    # order of checking should be
+    # absorbed -> nulled -> halved -> weak
+    
+    # checks for elemental weaknes
+    def is_weak(self, element):
+        if element in self.WEAK:
+            return True
+        else:
+            return False
+
+    # checks for elemental halved
+    def is_halv(self, element):
+        if element in self.HALV:
+            return True
+        else:
+            return False
+            
+    # checks for elemental nullified   
+    def is_null(self, element):
+        if element in self.NULL:
+            return True
+        else:
+            return False
+            
+    # checks for elemental absorbed
+    def is_absb(self, element):
+        if element in self.ABSB:
+            return True
+        else:
+            return False

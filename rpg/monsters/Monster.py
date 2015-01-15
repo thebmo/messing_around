@@ -20,6 +20,21 @@ class Monster(object):
         'exp': 0,
         }
 
+    # monster spells stored in a dict per class
+    # spells: { 'name': rank }
+    # monster spells are class variables
+    spells = {
+        'Fire': 0,
+        'Ice': 0,
+        'Heal': 0,
+        }
+        
+    # monster elemental strengths / weakness
+    halv = []
+    null = []
+    absb = []
+    weak = []
+
     def __init__(
         self,
         is_dead=False,
@@ -31,6 +46,11 @@ class Monster(object):
         
         self.hp = self.stats['max_hp']
         self.ap = self.stats['max_ap']
+        
+        self.HALV = self.halv
+        self.NULL = self.null
+        self.ABSB = self.absb
+        self.WEAK = self.weak
 
 
 
@@ -41,7 +61,7 @@ class Monster(object):
     def __ref__(self):
         return self.name
 
-
+    # basic recieved damage method
     def take_damage(self, taken_damage):
         self.hp -= taken_damage
         if self.hp < 1:
