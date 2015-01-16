@@ -15,37 +15,61 @@ def start_combat(party):
     # initializes combat variables
     in_combat = True
     monsters = random_encounter(console=True)
-    initiative = determine_initiative(party, monsters)
+    initiatives = determine_initiative(party, monsters)
     # end combat initialization
 
     # pseudo code below for basic combat logic
     # monster/party death checks should be done in between
     # combat action. combat should end if party has fallen
     # or all monsters have been defeated
-    # while still in combat
-        # for loop through initiatives
-            # if member is dead:
-                # continue
+    while (in_combat):
+        for initiative in initiatives:
+            # sets member to the active character
+            member = get_member(initiative, party, monsters)
+            
+            if party_is_dead(party):
+                print 'The party has been defeated.'
+                in_combat = False
+                break
+            
+            elif monsters_are_dead(monsters):
+                print 'The party is victorious'
+                in_combat = False
+                
+                # total exp gains
+                # for p in party:
+                    # if not p is_dead:
+                        # give xp
+                        # check for level up
+
+            # skips dead member's combat turn
+            elif member.is_dead:
+                print '%s is dead!' % member.name
+                continue
+            
             
             # check for available options
+            else:
+                print '%s\'s turn' % member.name
+                if member in party:
+                    print 'this is where you choose your command'
+                else:
+                    print '%s attacks!' % member.name
                 # attack
-                # defend
+                # if member in party (not monsters)
+                    # defend
                 # spells
                     # go throw hero spells
                         # if rank >0: list spell
                 # if member in party (not monsters)
                     # items
                         # check for items owned by party
+
+
+        print '1 round of combat end'
+        in_combat = False
         
-        # if any monsters still aliveL
-            # if monsters_are_dead(monsters):
-                # in_combat = False
-            # continue combat
-        # else:
-            # total exp gains
-            # for member in party:
-                # if not member is_dead:
-                    # give xp
+
     # end pseudo code for combat logic
 
 
@@ -91,6 +115,7 @@ def fetch_monsters(monsters):
 # sorted monster and party initiatives
 # Ex:
 #   (party or monster, object list index, initiative roll)
+#   ('p' or 'm', 0-9, 15)
 def determine_initiative(party, monsters, testing=False):
     
     # a list of tuples (p/m, index, roll)
@@ -117,6 +142,13 @@ def determine_initiative(party, monsters, testing=False):
     return initiatives
 
 
+# converts the initiative member to
+# its proper party or monster object
+def get_member(member, party, monsters):
+    if member[0] == 'p':
+        return party[member[1]]
+    return monsters[member[1]]
+
 # checks if any monsters are alive
 # returns True if all dead : Else False
 def monsters_are_dead(monsters):
@@ -124,6 +156,21 @@ def monsters_are_dead(monsters):
     
     for m in monsters:
         if not m.is_dead:
+            all_dead = False
+            break
+        else:
+            all_dead = True
+            
+    return all_dead
+
+    
+# verifies if all party members dead
+# returns True if all dead : Else False
+def party_is_dead(party):
+    all_dead = False
+    
+    for p in party:
+        if not p.is_dead:
             all_dead = False
             break
         else:
