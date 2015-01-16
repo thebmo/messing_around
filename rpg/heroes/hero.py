@@ -37,7 +37,6 @@ class Hero(object):
         'Heal': 0,
         }
 
-    EXP = 0    
     # end stats, spells, stat growth, and stat mods
 
 
@@ -52,14 +51,15 @@ class Hero(object):
         self.stats['max_hp'] += self.growth['max_hp']
         self.stats['max_ap'] += self.growth['max_ap']
         self.hp += self.growth['max_hp']
-        self.ap += self.growth['max_ap']
+        self.ap += self.growth['max_ap']  
+
+
+    # checker to see if leveled after combat
+    def leveled(self):
+        if self.EXP > self.exp_to_next_level[self.level]:
+            return True
         
-        # hero elemental strengths / weakness
-        self.HALV = []
-        self.NULL = []
-        self.ABSB = []
-        self.WEAK = []
-        
+        return False
 
     # initializes the hero
     def __init__(self,
@@ -87,7 +87,14 @@ class Hero(object):
         self.hp = self.stats['max_hp']
         self.ap = self.stats['max_ap']
         self.spells = self.class_spells
+                
+        # hero elemental strengths / weakness
+        self.HALV = []
+        self.NULL = []
+        self.ABSB = []
+        self.WEAK = []
         
+        self.EXP = 0
 
     # cleanly prints stats
     def print_stats(self):

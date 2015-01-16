@@ -1,19 +1,20 @@
 from combat_functions import *
 from random import randrange, choice
 
-# MAX_MONSTERS = 4
 
-# create monsters
-# determine action order based on agi
-# issue commands
-# repeat
+# testing settings
+TESTING = True
+CONSOLE = True
 
-# starts combat
-def start_combat(party):
+
+# main call to initiate combat.
+# party: a list of hero party objects
+# console: param to dictate if in a console window
+def start_combat(party, console=CONSOLE):
     
     # initializes combat variables
     in_combat = True
-    monsters = random_encounter(console=True)
+    monsters = random_encounter(console=console)
     initiatives = determine_initiative(party, monsters)
     # end combat initialization
 
@@ -35,11 +36,18 @@ def start_combat(party):
                 print 'The party is victorious'
                 in_combat = False
                 
+                
                 # total exp gains
-                # for p in party:
-                    # if not p is_dead:
-                        # give xp
-                        # check for level up
+                exp = get_exp(monsters)
+                for p in party:
+                    if not p.is_dead:
+                        p.EXP += exp
+                        while(p.leveled()):
+                            p.level_up()
+                            if console:
+                                print '\n%s has leveled up' % p.name
+                                p.print_stats()
+                break
 
             # skips dead member's combat turn
             elif member.is_dead:
@@ -47,7 +55,7 @@ def start_combat(party):
                 continue
             
             
-            # check for available options
+            # check for available commands
             else:
                 print '%s\'s turn' % member.name
                 if member in party:
@@ -63,7 +71,13 @@ def start_combat(party):
                 # if member in party (not monsters)
                     # items
                         # check for items owned by party
+            
+            # end combat command check
 
 
-        print '1 round of combat end'
-        in_combat = False
+        # test block to end combat
+        if TESTING:
+            for m in monsters:
+                m.is_dead =True
+            print '\nend combat testing'
+        # end test block

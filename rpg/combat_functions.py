@@ -1,16 +1,13 @@
-# import sys               # for the str to class call
 from random import randrange, choice
 from monsters import *
 
-MAX_MONSTERS = 4
-
 
 # determines which monsters attack the party
-def random_encounter(console=False):
+def random_encounter(console=False, max_monsters=4):
     
     # this will bey dynamically extended
     monster_pool = ['Slime', 'Imp']
-    m_count = randrange(MAX_MONSTERS)+1
+    m_count = randrange(max_monsters)+1
     monsters = []
     
     # chooses monsters from the monster pool
