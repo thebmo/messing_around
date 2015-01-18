@@ -1,11 +1,6 @@
 from combat_functions import *
-from random import randrange, choice
-
-
-# testing settings
-TESTING = True
-CONSOLE = True
-
+from config import *                  # for global settings
+# from random import randrange, choice
 
 # main call to initiate combat.
 # party: a list of hero party objects
@@ -35,9 +30,8 @@ def start_combat(party, console=CONSOLE):
             elif monsters_are_dead(monsters):
                 print 'The party is victorious'
                 in_combat = False
-                
-                
-                # total exp gains
+
+                # total exp gains grants to live party
                 exp = get_exp(monsters)
                 for p in party:
                     if not p.is_dead:
@@ -53,8 +47,7 @@ def start_combat(party, console=CONSOLE):
             elif member.is_dead:
                 print '%s is dead!' % member.name
                 continue
-            
-            
+
             # check for available commands
             else:
                 print '%s\'s turn' % member.name
@@ -78,6 +71,6 @@ def start_combat(party, console=CONSOLE):
         # test block to end combat
         if TESTING:
             for m in monsters:
-                m.is_dead =True
+                m.is_dead = True
             print '\nend combat testing'
         # end test block
