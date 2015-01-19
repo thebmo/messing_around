@@ -45,7 +45,7 @@ def fetch_monsters(monsters):
 # Ex:
 #   (party or monster, object list index, initiative roll)
 #   ('p' or 'm', 0-9, 15)
-def determine_initiative(party, monsters, testing=False):
+def determine_initiative(party, monsters, testing=TESTING):
     
     # a list of tuples (p/m, index, roll)
     initiatives = []
@@ -59,7 +59,7 @@ def determine_initiative(party, monsters, testing=False):
         r = randrange(0,20)+1 + m.stats['AGI']
         initiatives.append(('m', i, r))
     
-    # sorts initiative by roll value
+    # sorts initiative by highest roll value
     initiatives = sorted(initiatives, key=lambda x: x[2], reverse=True)
     
     if testing:
@@ -77,6 +77,7 @@ def get_member(member, party, monsters):
     if member[0] == 'p':
         return party[member[1]]
     return monsters[member[1]]
+
 
 # checks if any monsters are alive
 # returns True if all dead : Else False
@@ -108,7 +109,8 @@ def party_is_dead(party):
     return all_dead
 
 
-# returns the amount of EXP for each party member
+# returns the total amount of EXP from monsters
+# for each party member
 def get_exp(monsters):
     exp = 0
     

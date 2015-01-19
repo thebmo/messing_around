@@ -18,6 +18,7 @@ def start_combat(party, console=CONSOLE):
     # combat action. combat should end if party has fallen
     # or all monsters have been defeated
     while (in_combat):
+        
         for initiative in initiatives:
             # sets member to the active character
             member = get_member(initiative, party, monsters)
@@ -27,6 +28,7 @@ def start_combat(party, console=CONSOLE):
                 in_combat = False
                 break
             
+            # ends combat if all monsters are dead
             elif monsters_are_dead(monsters):
                 print 'The party is victorious'
                 in_combat = False
