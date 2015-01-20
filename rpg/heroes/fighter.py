@@ -1,7 +1,8 @@
 from hero import Hero
+from npc import NPC
 
 
-class Fighter(Hero):
+class Fighter(Hero, NPC):
     
     # class variiables
     CLASS = 'Fighter'

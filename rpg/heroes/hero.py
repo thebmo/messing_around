@@ -1,8 +1,8 @@
-# from collections import OrderedDict
 from exp import exp_to_next_level
+from npc import NPC
 
 # Basic Hero Class Object
-class Hero(object):
+class Hero(NPC):
     
     # A chart of required xp to reach next level as list.
     # Uses index as current level
@@ -73,6 +73,7 @@ class Hero(object):
         self.name = name
         self.level = level
         self.is_dead = is_dead
+        self.is_defending = False
         
         self.stats = {
             'STR': 0,
@@ -110,59 +111,3 @@ class Hero(object):
         print 'AP: %s/%s' % (self.ap, self.stats['max_ap'])
         print 'EXP   : %s' % self.EXP
         print 'NEEDED: %s' % self.exp_to_next_level[self.level]
-
-
-    # raw damage calculations
-    def deal_damage(self):
-        return self.stats['STR'] + int((.5 * self.AGI_MOD) * self.stats['AGI'])
-
-
-    # takes raw damage and applies modifiers, then
-    # subtracts from hero's hp
-    def take_damage(self, raw_damage):
-        damage = raw_damage - int(.5 * self.stats['AGI'])
-        
-        if damage > 1:
-            self.hp -= damage
-            self.check_for_death()
-
-
-    # checks if hero is dead and makes adjustments
-    def check_for_death(self):
-        if self.hp <=0:
-            self.is_dead = True
-            self.hp = 0
-            
-
-    # def cast_spell(self, spell):
-    
-    # order of checking should be
-    # absorbed -> nulled -> halved -> weak
-    
-    # checks for elemental weaknes
-    def is_weak(self, element):
-        if element in self.WEAK:
-            return True
-        else:
-            return False
-
-    # checks for elemental halved
-    def is_halv(self, element):
-        if element in self.HALV:
-            return True
-        else:
-            return False
-            
-    # checks for elemental nullified   
-    def is_null(self, element):
-        if element in self.NULL:
-            return True
-        else:
-            return False
-            
-    # checks for elemental absorbed
-    def is_absb(self, element):
-        if element in self.ABSB:
-            return True
-        else:
-            return False

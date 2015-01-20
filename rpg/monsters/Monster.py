@@ -1,7 +1,8 @@
+from npc import NPC
 from random import randrange
 
 
-class Monster(object):
+class Monster(NPC):
     """
         basic moster class
     """
@@ -38,11 +39,13 @@ class Monster(object):
     def __init__(
         self,
         is_dead=False,
+        is_defending=False,
         ):
 
         self.name = self.NAME
         self.stats = self.STATS
         self.is_dead = is_dead
+        self.is_defending = is_defending
         
         self.hp = self.stats['max_hp']
         self.ap = self.stats['max_ap']
@@ -61,19 +64,6 @@ class Monster(object):
     def __ref__(self):
         return self.name
 
-    # basic recieved damage method
-    def take_damage(self, taken_damage):
-        self.hp -= taken_damage
-        if self.hp < 1:
-            self.is_dead = True
-
-
-    # checks if hero is dead and makes adjustments
-    def check_for_death(self):
-        if self.hp <=0:
-            self.is_dead = True
-            self.hp = 0
-
             
     # chooses target from list of targets
     # returns live target's index
@@ -85,10 +75,3 @@ class Monster(object):
 
             if not targets[t].is_dead:
                 return t
-        
-            
-            
-    # deals damage
-    def deal_damage(self):
-        return self.damage
-        

@@ -1,7 +1,8 @@
 from hero import Hero
+from npc import NPC
 
 
-class Wizard(Hero):
+class Wizard(Hero, NPC):
     
     CLASS = 'Wizard'
     INT_MOD = 2

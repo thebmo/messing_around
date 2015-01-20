@@ -1,7 +1,8 @@
 from hero import Hero
+from npc import NPC
 
 
-class Rogue(Hero):
+class Rogue(Hero, NPC):
     
     CLASS = 'Rogue'
     AGI_MOD = 2
