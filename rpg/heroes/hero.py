@@ -1,5 +1,6 @@
 from exp import exp_to_next_level
 from npc import NPC
+from random import randrange as rand
 
 # Basic Hero Class Object
 class Hero(NPC):
@@ -61,6 +62,7 @@ class Hero(NPC):
         
         return False
 
+
     # initializes the hero
     def __init__(self,
         name='Bmo',
@@ -97,6 +99,7 @@ class Hero(NPC):
         
         self.EXP = 0
 
+
     # cleanly prints stats
     def print_stats(self):
         print "\nNAME : %s" % self.name
@@ -107,7 +110,19 @@ class Hero(NPC):
         print 'INT: %s' % self.stats['INT']
         print 'CHA: %s' % self.stats['CHA']
         print 'LCK: %s' % self.stats['LCK']
-        print 'HP: %s/%s' % (self.hp, self.stats['max_hp'])
-        print 'AP: %s/%s' % (self.ap, self.stats['max_ap'])
+        print 'HP : %s/%s' % (self.hp, self.stats['max_hp'])
+        print 'AP : %s/%s' % (self.ap, self.stats['max_ap'])
         print 'EXP   : %s' % self.EXP
-        print 'NEEDED: %s' % self.exp_to_next_level[self.level]
+        if self.level < 99:
+            print 'NEEDED: %s' % self.exp_to_next_level[self.level]
+
+
+    # calculates if party can run from hero's
+    # run value
+    def run(self):
+        roll = rand(100)+1
+        rv = roll + (self.level * self.AGI_MOD)
+
+        if rv > 80:
+            return True
+        return False

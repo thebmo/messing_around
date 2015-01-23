@@ -40,13 +40,14 @@ class Monster(NPC):
         self,
         is_dead=False,
         is_defending=False,
+        has_fled=False
         ):
 
         self.name = self.NAME
         self.stats = self.STATS
         self.is_dead = is_dead
         self.is_defending = is_defending
-        
+        self.has_fled = has_fled
         self.hp = self.stats['max_hp']
         self.ap = self.stats['max_ap']
         
