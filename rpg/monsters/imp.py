@@ -1,7 +1,8 @@
 from monster import Monster
+from npc import NPC
 
 
-class Imp(Monster):
+class Imp(Monster, NPC):
     
     NAME = 'Imp'
     

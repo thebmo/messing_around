@@ -1,7 +1,8 @@
 from monster import Monster
+from npc import NPC
 
 
-class Slime(Monster):
+class Slime(Monster, NPC):
 
     NAME = 'Slime'
 
