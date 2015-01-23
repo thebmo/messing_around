@@ -1,3 +1,4 @@
+from config import *                  # for global settings
 from random import randrange, choice
 from monsters import *
 
@@ -63,7 +64,7 @@ def determine_initiative(party, monsters, testing=TESTING):
     initiatives = sorted(initiatives, key=lambda x: x[2], reverse=True)
     
     if testing:
-        print 'INITIATIVE ORDER'
+        print '\nINITIATIVE ORDER'
         print '================'
         for i in initiatives:
             print i
