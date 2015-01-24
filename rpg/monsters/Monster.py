@@ -75,4 +75,4 @@ class Monster(NPC):
             t = (r / 25 )
 
             if not targets[t].is_dead:
-                return t
+                return targets[t]
