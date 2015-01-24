@@ -33,7 +33,7 @@ def print_commands(commands):
 # returns the chosen command
 def accept_command(c_enum):
     
-    creates a list of ind
+    # creates a list of indices
     indices = []
     for i in c_enum:
         indices.append(i[0])
