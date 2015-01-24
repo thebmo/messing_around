@@ -119,8 +119,28 @@ def get_exp(monsters):
         exp += m.stats['exp']
 
     return exp
+
+
+# calcs if preemptive fight or not
+# returns:
+#   0 - no premptive fight
+#   1 - party goes first
+#   2 - monsters go first
+def pre_emptive():
+    fight = 0
     
+    # party goes first
+    r = randrange(100)
+    if r > 79:
+        fight += 1
     
+    # monsters go first
+    elif r < 20:
+        fight +=2
+    
+    return fight
+
+
 # main call for boilerplate code
 def main():
     random_encounter()
