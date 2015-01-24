@@ -1,4 +1,5 @@
 from combat_functions import *
+import combat_interface as CI
 from config import *                  # for global settings
 # from random import randrange, choice
 
@@ -17,9 +18,29 @@ def start_combat(party, console=CONSOLE):
     # monster/party death checks should be done in between
     # combat action. combat should end if party has fallen
     # or all monsters have been defeated
+
+    # fight type
+    pre_emp = pre_emptive()
+    
+    if TESTING and pre_emp:
+        print '\nPRE-EMPTIVE BATTLE!\n'
+
+    # ROUND LOOP
     while (in_combat):
-        
+                
+        # TURN LOOP
         for initiative in initiatives:
+            
+            # skips monster turn if pre-emptive
+            if pre_emp == 1 and initiative[0] == 'm':
+                    print 'monster skipped'
+                    continue
+            
+            # skips hero turn if pre-emptive
+            elif pre_emp == 2 and initiative[0] == 'p':
+                    print 'hero skipped'
+                    continue
+            
             # sets member to the active character
             member = get_member(initiative, party, monsters)
             
@@ -53,10 +74,15 @@ def start_combat(party, console=CONSOLE):
             # check for available commands
             else:
                 print '%s\'s turn' % member.name
+                
+                # PARTY LOGIC
                 if member in party:
-                    print 'this is where you choose your command'
+                    CI.interface()
+                
+                # MONSTER LOGIC
                 else:
-                    print '%s attacks!' % member.name
+                    target = member.choose_target(party)
+                    print '%s attacks %s!' % (member.name, target.name)
                 # attack
                 # if member in party (not monsters)
                     # defend
@@ -67,8 +93,8 @@ def start_combat(party, console=CONSOLE):
                     # items
                         # check for items owned by party
             
-            # end combat command check
-
+            
+            # END TURN LOOP
 
         # test block to end combat
         if TESTING:
@@ -76,3 +102,9 @@ def start_combat(party, console=CONSOLE):
                 m.is_dead = True
             print '\nend combat testing'
         # end test block
+    
+        # clears pre-emptive status
+        pre_emp = 0
+        
+        
+        # END ROUND LOOP
