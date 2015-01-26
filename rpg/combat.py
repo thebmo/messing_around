@@ -77,7 +77,7 @@ def start_combat(party, console=CONSOLE):
                 
                 # PARTY LOGIC
                 if member in party:
-                    CI.interface()
+                    CI.interface(party, monsters)
                 
                 # MONSTER LOGIC
                 else:

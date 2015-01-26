@@ -62,7 +62,7 @@ class Monster(NPC):
         return self.name
 
 
-    def __ref__(self):
+    def __repr__(self):
         return self.name
 
             
