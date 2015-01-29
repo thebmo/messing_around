@@ -1,4 +1,5 @@
 from config import *
+from heroes.party import Party
 
 
 # returns a single hero class object
@@ -65,7 +66,7 @@ def create_party():
             for p in party:
                 p.print_stats()
 
-        return party
+        return Party(party)
 
 
 # this is for testing purposes
