@@ -120,6 +120,17 @@ def get_exp(monsters):
 
     return exp
 
+    
+# returns the total amount of EXP from monsters
+# for each party member
+def get_gold(monsters):
+    gold = 0
+    
+    for m in monsters:
+        gold += m.stats['gold']
+
+    return gold
+
 
 # calcs if preemptive fight or not
 # returns:

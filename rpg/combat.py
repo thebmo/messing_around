@@ -4,9 +4,12 @@ from config import *                  # for global settings
 # from random import randrange, choice
 
 # main call to initiate combat.
-# party: a list of hero party objects
+# Party: party object (contains a list of hero objects)
 # console: param to dictate if in a console window
-def start_combat(party, console=CONSOLE):
+def start_combat(Party, console=CONSOLE):
+    
+    # converts the party object list into a local copy
+    party = Party.members
     
     # initializes combat variables
     in_combat = True
@@ -19,7 +22,7 @@ def start_combat(party, console=CONSOLE):
     # combat action. combat should end if party has fallen
     # or all monsters have been defeated
 
-    # fight type
+    # pre-emptive fight type
     pre_emp = pre_emptive()
     
     if TESTING and pre_emp:
@@ -27,7 +30,14 @@ def start_combat(party, console=CONSOLE):
 
     # ROUND LOOP
     while (in_combat):
-                
+    
+    # # MAKE A COMMAND LIST HERE
+    # commands = [
+        # party_index,
+        # command,
+        # target
+        # ]
+    
         # TURN LOOP
         for initiative in initiatives:
             
@@ -51,11 +61,13 @@ def start_combat(party, console=CONSOLE):
             
             # ends combat if all monsters are dead
             elif monsters_are_dead(monsters):
-                print 'The party is victorious'
+                print 'The party is victorious!'
                 in_combat = False
 
                 # total exp gains grants to live party
                 exp = get_exp(monsters)
+                gold = get_gold(monsters)
+                print 'The Party gains %s EXP and %s GOLD' % (exp, gold)
                 for p in party:
                     if not p.is_dead:
                         p.EXP += exp
@@ -83,15 +95,6 @@ def start_combat(party, console=CONSOLE):
                 else:
                     target = member.choose_target(party)
                     print '%s attacks %s!' % (member.name, target.name)
-                # attack
-                # if member in party (not monsters)
-                    # defend
-                # spells
-                    # go throw hero spells
-                        # if rank >0: list spell
-                # if member in party (not monsters)
-                    # items
-                        # check for items owned by party
             
             
             # END TURN LOOP
@@ -105,6 +108,5 @@ def start_combat(party, console=CONSOLE):
     
         # clears pre-emptive status
         pre_emp = 0
-        
-        
-        # END ROUND LOOP
+    
+    # END ROUND LOOP
