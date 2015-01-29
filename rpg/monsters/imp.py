@@ -17,4 +17,5 @@ class Imp(Monster, NPC):
         'damage': 2,
         'level': 2,
         'exp': 2,
+        'gold': 8,
         }

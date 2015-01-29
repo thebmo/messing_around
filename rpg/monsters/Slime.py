@@ -17,4 +17,5 @@ class Slime(Monster, NPC):
         'damage': 1,
         'level': 1,
         'exp': 1,
+        'gold': 5,
         }

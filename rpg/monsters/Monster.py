@@ -19,8 +19,11 @@ class Monster(NPC):
         'damage': 0,
         'level': 0,
         'exp': 0,
+        'gold': 0,
         }
+    
 
+    
     # monster spells stored in a dict per class
     # spells: { 'name': rank }
     # monster spells are class variables
@@ -40,7 +43,7 @@ class Monster(NPC):
         self,
         is_dead=False,
         is_defending=False,
-        has_fled=False
+        has_fled=False,
         ):
 
         self.name = self.NAME
@@ -72,7 +75,8 @@ class Monster(NPC):
         targeting = True
         while(targeting):
             r = randrange(0, 100)
-            t = (r / 25 )
+            p = 100/len(targets)
+            t = (r / p )
 
             if not targets[t].is_dead:
                 return targets[t]
