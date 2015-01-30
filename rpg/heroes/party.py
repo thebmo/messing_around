@@ -32,4 +32,4 @@ class Party(object):
     # Levels up the entire party by 1
     def level_up(self):
         for h in self.heroes:
-            h.level_up
+            h.level_up()
