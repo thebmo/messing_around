@@ -1,3 +1,14 @@
+"""
+    Master combat logic module. This contains all the basic
+    logic flow for combat. 
+    MODULES:
+        combat_functions: handles all the helper functions
+        combat_interface: this is the GUI for selecting
+            and displaying hero combat comands
+        config: this module works as a settings file. It
+            contains globals that are used as kwargs
+"""
+
 import combat_functions as CF
 import combat_interface as CI
 from config import *                  # for global settings
@@ -9,7 +20,7 @@ from config import *                  # for global settings
 def start_combat(Party, console=CONSOLE):
     
     # converts the party object list into a local copy
-    party = Party.members
+    party = Party.heroes
     
     # initializes combat variables
     in_combat = True
