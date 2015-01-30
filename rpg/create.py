@@ -1,3 +1,9 @@
+"""
+    Handles the logic to create both an individual Hero object
+    as well as a Party object that contains a list of Hero
+    objects.
+"""
+
 from config import *
 from heroes.party import Party
 
@@ -35,10 +41,11 @@ def create_hero():
             hero = Wizard(name=name)
         else:
             hero = ''
-            print 'uknown error'
+            print 'Class import failed!'
             break
         
-        hero.level_up()
+        if hero.level == 0:
+            hero.level_up()
         
         return hero
 

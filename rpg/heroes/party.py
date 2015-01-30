@@ -16,7 +16,7 @@ class Party(object):
         self.items = items
 
 
-    # prints stats for entire party
+    # Prints stats for entire party
     def print_stats(self):
         for h in self.heroes:
             h.print_stats()
@@ -27,3 +27,9 @@ class Party(object):
         for h in self.heroes:
             h.hp = h.stats['max_hp']
             h.ap = h.stats['max_ap']
+
+
+    # Levels up the entire party by 1
+    def level_up(self):
+        for h in self.heroes:
+            h.level_up

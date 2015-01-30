@@ -1,3 +1,8 @@
+"""
+    This is the hero base class, the parent for all hero
+    sub-classes.
+"""
+
 from exp import exp_to_next_level
 from npc import NPC
 from random import randrange as rand

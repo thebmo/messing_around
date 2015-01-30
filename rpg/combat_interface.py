@@ -1,3 +1,8 @@
+"""
+    This is the GUI for selecting and displaying hero combat comands.
+    This module should never be called direclty and always be imported.
+"""
+
 import combat_functions as CF
 from config import *
 
@@ -19,12 +24,9 @@ def interface(party, monsters):
         target_monster(monsters)
 
 
-# prints available commands and returns an enumerated list
+# Prints available commands and returns an enumerated list
 def print_commands(commands):
-        # c_enum = []
-        # for i, c in enumerate(commands):
-            # print i+1, c
-            # c_enum.append((str(i+1), c))
+
         commands = zip(
             range(
                 1,
@@ -34,11 +36,11 @@ def print_commands(commands):
             )
         for c in commands:
             print c[0], c[1]
-        # return c_enum
+
         return commands
 
 
-# returns the chosen command as a string
+# Returns the chosen command as a string
 def accept_command(c_enum):
     
     # creates a list of indices
@@ -47,7 +49,7 @@ def accept_command(c_enum):
         indices.append(i[0])
 
 
-    # takes user import and converts to integer
+    # Takes user import and converts to integer
     choice = ''
     while(choice not in indices):
         choice = raw_input('Choose your command(#): ')
@@ -63,7 +65,7 @@ def accept_command(c_enum):
     return c_enum[choice][1]
 
 
-# takes a list of monsters, returns one that is targeted
+# Takes a list of monsters, returns one that is targeted
 def target_monster(monsters):
     live_monsters = []
     

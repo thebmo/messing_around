@@ -1,6 +1,11 @@
+"""
+    Helper methods for the combat.py module. This file
+    should only be imported and never called directly.
+"""
+
 from config import *                  # for global settings
-from random import randrange, choice
 from monsters import *
+from random import randrange, choice
 
 
 # determines which monsters attack the party

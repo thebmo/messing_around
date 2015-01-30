@@ -1,3 +1,7 @@
+"""
+    Slime monster sub-class of parents Monster and NPC.
+"""
+
 from monster import Monster
 from npc import NPC
 

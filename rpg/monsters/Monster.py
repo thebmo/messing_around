@@ -1,3 +1,8 @@
+"""
+    This is the monster base class, the parent for all monster
+    sub-classes.
+"""
+
 from npc import NPC
 from random import randrange
 

@@ -1,7 +1,7 @@
-'''
+"""
     this is the config file, below are globals for the
     whole application
-'''
+"""
 
 
 TESTING = True
