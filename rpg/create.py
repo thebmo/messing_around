@@ -61,9 +61,14 @@ def create_party():
         
         party.append(create_hero())
 
-        add_more = ' '
-        while(add_more[0] != 'y' and add_more[0] != 'n' and len(party) < MAX_PARTY):
+        add_more = ''
+        while(len(add_more)<1 and len(party) < MAX_PARTY):
             add_more = raw_input('Add more party members (4 max)? (y/n)').lower()
+            if len(add_more) < 1:
+                continue
+            elif add_more[0] != 'y' and add_more[0] != 'n':
+                add_more = ''
+                    
         if add_more[0] == 'y':
             print '\n'
             continue
@@ -73,7 +78,7 @@ def create_party():
             for p in party:
                 p.print_stats()
 
-        return Party(party)
+    return Party(party)
 
 
 # this is for testing purposes
