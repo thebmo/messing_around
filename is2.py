@@ -12,18 +12,34 @@
 def sub_changes(last_month, this_month):
     sub_actions = []
     
-    for last_sub in set(last_month):
-        if last_sub in this_month:
+    for last_sub in last_month:
+        if last_sub in set(this_month):
             sub_actions.append((last_sub, 'renewal'))
         else:
             sub_actions.append((last_sub, 'cancel'))
     
-    for this_sub in set(this_month):
-        if this_sub not in last_month:
+    for this_sub in this_month:
+        if this_sub not in set(last_month):
             sub_actions.append((this_sub, 'new subscriber'))
 
     return sub_actions
 
+    
+# takes list arg (this/last month)
+def sub_dict(last_month, this_month):
+    sub_actions = {}
+    for sub in last_month:
+        sub_actions[sub] = 'canceled'
+    
+    for sub in this_month:
+        if sub in sub_actions:
+            sub_actions[sub] = 'renewal'
+        else:
+            sub_actions[sub] = 'new subscriber'
+            
+
+    return sub_actions
+    
 def main():
     last_month = ['Conor', 'Paul', 'Brian']
     this_month = ['Paul', 'Brian', 'Norbert']
@@ -36,6 +52,9 @@ def main():
     print type(changes)
     sett = set(changes)
     print type(sett)
+    
+    changes = sub_dict(last_month, this_month)
+    print changes
 # boiler code    
 if __name__ == '__main__':
     main()
