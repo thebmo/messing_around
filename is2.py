@@ -37,9 +37,9 @@ def sub_dict(last_month, this_month):
         else:
             sub_actions[sub] = 'new subscriber'
             
-
     return sub_actions
-    
+
+
 def main():
     last_month = ['Conor', 'Paul', 'Brian']
     this_month = ['Paul', 'Brian', 'Norbert']
@@ -55,6 +55,8 @@ def main():
     
     changes = sub_dict(last_month, this_month)
     print changes
+
+
 # boiler code    
 if __name__ == '__main__':
     main()
