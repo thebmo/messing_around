@@ -1,1 +1,1 @@
-__all__ = ['imp', 'slime']
+__all__ = ['goblin', 'imp', 'slime']

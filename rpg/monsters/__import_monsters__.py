@@ -27,7 +27,7 @@ def main():
         I.write(all)
 
 
-    raw_input('finished')
+    raw_input('Finished!: press enter to close')
         
 
 if __name__ == '__main__':
