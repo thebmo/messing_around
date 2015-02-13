@@ -2,17 +2,17 @@
     Helper methods for the combat.py module. This file
     should only be imported and never called directly.
 """
-
-from config import *                  # for global settings
+from config import *                              # for global settings
 from monsters import *
+from monsters.__init__ import __all__ as MONSTERS # for monster pool
 from random import randrange, choice
 
 
 # determines which monsters attack the party
 def random_encounter(console=False, max_monsters=4):
     
-    # this will bey dynamically extended
-    monster_pool = ['Slime', 'Imp']
+    # this will be dynamically extended
+    monster_pool = [''.join((m[0].upper(), m[1:])) for m in MONSTERS]
     m_count = randrange(max_monsters)+1
     monsters = []
     
