@@ -14,6 +14,7 @@ import combat_interface as CI
 from config import *                  # for global settings
 # from random import randrange, choice
 
+
 # main call to initiate combat.
 # Party: party object (contains a list of hero objects)
 # console: param to dictate if in a console window
@@ -106,8 +107,16 @@ def start_combat(Party, console=CONSOLE):
                 
                 # MONSTER LOGIC
                 else:
-                    target = member.choose_target(party)
-                    print '%s attacks %s!' % (member.name, target.name)
+                    
+                    if CF.avg_level(party) - member.stats['level'] >= 5:
+                        member.has_fled = True
+                        print '%s flees!' % member.name
+                    
+                    else:
+                        target = member.choose_target(party)
+                        damage = member.attack(target)
+                        
+                        print '%s attacks %s for %d damage!' % (member.name, target.name, damage)
             
             
             # END TURN FOR-LOOP
