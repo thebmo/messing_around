@@ -157,6 +157,11 @@ def pre_emptive():
     return fight
 
 
+# Returns the average level of a list of objects    
+def avg_level(party):
+    avg = sum([p.level for p in party]) / (len(party))
+    return avg
+
 # main call for boilerplate code
 def main():
     random_encounter()
