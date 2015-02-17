@@ -21,13 +21,14 @@ class Monster(NPC):
         'LCK': 0,
         'max_hp': 0,
         'max_ap': 0,
-        'damage': 0,
         'level': 0,
         'exp': 0,
         'gold': 0,
         }
     
-
+    STR_MOD = 1
+    AGI_MOD = 1
+    INT_MOD = 1
     
     # monster spells stored in a dict per class
     # spells: { 'name': rank }

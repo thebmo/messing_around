@@ -18,7 +18,6 @@ class Goblin(Monster, NPC):
         'LCK': 5,
         'max_hp': 12,
         'max_ap': 0,
-        'damage': 7,
         'level': 6,
         'exp': 10,
         'gold': 15,
