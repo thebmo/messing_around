@@ -49,14 +49,16 @@ class NPC(object):
 
 
     # basic attack damage calculation
+    # returns the modified damage value
     def attack(self, target):
         damage = self.stats['STR'] + int((.5 * self.AGI_MOD) * self.stats['AGI'])
-        print self.name, 'deals', damage, 'damage to', target, '!'
-        target.take_damage(damage)
+        
+        return target.take_damage(damage)
 
 
     # takes raw damage and applies modifiers, then
     # subtracts from hero's hp
+    # returns the modified damage
     def take_damage(self, raw_damage):
         dam_mod = 1
         
@@ -68,6 +70,8 @@ class NPC(object):
         if damage > 1:
             self.hp -= damage
             self.check_for_death()
+        
+        return damage
 
 
     # checks if hero is dead and makes adjustments
