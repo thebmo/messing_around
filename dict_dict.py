@@ -24,5 +24,14 @@ for name in names:
         }
 
 # prints the dict
-for name in names:
-    print '{: >10}'.format(name), '|', names[name]
+def print_dict(names):
+    for name in names:
+        print '{: >10}'.format(name), '|', names[name]
+    
+
+# creats a reverse dict
+rnames = {}
+for k, v in names.items():
+    rnames[v['nick']] = k
+ 
+print_dict(rnames)
