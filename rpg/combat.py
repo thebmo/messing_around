@@ -11,11 +11,10 @@
 
 import combat_functions as CF
 import combat_interface as CI
-from config import *                  # for global settings
-# from random import randrange, choice
+from config import *          # for global settings
 
 
-# main call to initiate combat.
+# Main call to initiate combat.
 # Party: party object (contains a list of hero objects)
 # console: param to dictate if in a console window
 def start_combat(Party, console=CONSOLE):
@@ -43,16 +42,12 @@ def start_combat(Party, console=CONSOLE):
     # START ROUND LOOP
     while (in_combat):
     
-    # # MAKE A COMMAND LIST HERE
-    # commands = [
-        # party_index,
-        # command,
-        # target
-        # ]
-    
         # START TURN LOOP
         for initiative in initiatives:
-            
+            CI.cls()
+            CI.print_stats(party)
+            print ''
+            CI.print_stats(monsters)
             # skips monster turn if pre-emptive
             if pre_emp == 1 and initiative[0] == 'm':
                     print 'monster skipped'
@@ -115,11 +110,17 @@ def start_combat(Party, console=CONSOLE):
                     else:
                         target = member.choose_target(party)
                         damage = member.attack(target)
-                        print '%s attacks %s for %d damage!' % (member.name, target.name, damage)
+                        print '\n%s attacks %s for %d damage!' % (member.name, target.name, damage)
                         if target.is_dead:
                             print '%s has been killed!' % target.name                        
             
+            raw_input('\npress ENTER to continiue')
             # END TURN FOR-LOOP
+            
+        # Clears any defending flags of all party members
+        for p in party:
+            p.is_defending = False
+        
 
 
         # test block to end combat inside while loop

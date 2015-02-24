@@ -161,8 +161,9 @@ def pre_emptive():
 def avg_level(party):
     avg = sum([p.level for p in party]) / (len(party))
     return avg
-
-
+    
+    
+    
 # main call for boilerplate code
 def main():
     random_encounter()
