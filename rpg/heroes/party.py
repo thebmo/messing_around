@@ -23,10 +23,11 @@ class Party(object):
 
 
     # Heals party to full HP/AP
-    def heal_party(self):
+    def heal(self):
         for h in self.heroes:
             h.hp = h.stats['max_hp']
             h.ap = h.stats['max_ap']
+            h.is_dead = False
 
 
     # Levels up the entire party by 1
