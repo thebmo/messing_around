@@ -67,9 +67,11 @@ class NPC(object):
         
         damage = ((raw_damage - int(.5 * self.stats['AGI'])) / dam_mod)
         
-        if damage > 1:
+        if damage > 0:
             self.hp -= damage
             self.check_for_death()
+        if damage < 0:
+            damage = 0
         
         return damage
 
