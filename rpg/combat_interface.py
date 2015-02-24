@@ -8,7 +8,7 @@ from config import *
 
 
 # def interface(hero, mosnters):
-def interface(party, monsters):
+def interface(hero, monsters):
     commands = [
         'Attack',
         'Spell',
@@ -20,8 +20,13 @@ def interface(party, monsters):
     
     if CONSOLE:
         enum_commands = print_commands(commands)
-        accept_command(enum_commands)
-        target_monster(monsters)
+        player_command = accept_command(enum_commands)
+        if player_command == 'Attack':
+            target = target_monster(monsters)
+            damage = hero.attack(target)
+            print '%s attacks %s for %d damage!' % (hero.name, target.name, damage)
+            if target.is_dead:
+                print '%s has been killed!' % target.name 
 
 
 # Prints available commands and returns an enumerated list
@@ -57,12 +62,12 @@ def accept_command(c_enum):
         try: 
             choice = int(choice)
         
-        except:
-            pass
+        except Exception as e:
+            print e
 
-    # print 'You chose: %s ' % c_enum[choice][1]
+    # print 'You chose: %s ' % c_enum[choice-1][1]
     
-    return c_enum[choice][1]
+    return c_enum[choice-1][1]
 
 
 # Takes a list of monsters, returns one that is targeted
@@ -83,7 +88,18 @@ def target_monster(monsters):
             len(live_monsters)+1),
         live_monsters
         )
-
+    for monster in live_monsters:
+        print monster[0], ':', monster[1]
+    
+    choice = ''
+    choices = {str(x) for x in range(1, len(live_monsters)+1)}
+    
+    while(choice not in choices):
+        choice = raw_input('Select target: ')
+    choice = int(choice)
+    
+    return live_monsters[choice-1][1]
+        
         
 # this is the logic to actually execute the issued command
 # def execute_command(hero, target, command):

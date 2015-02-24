@@ -38,7 +38,7 @@ def start_combat(Party, console=CONSOLE):
     pre_emp = CF.pre_emptive()
     
     if TESTING and pre_emp:
-        print '\nPRE-EMPTIVE BATTLE!\n'
+        print '\nPRE-EMPTIVE BATTLE!'
 
     # START ROUND LOOP
     while (in_combat):
@@ -67,13 +67,13 @@ def start_combat(Party, console=CONSOLE):
             member = CF.get_member(initiative, party, monsters)
             
             if CF.party_is_dead(party):
-                print 'The party has been defeated.'
+                print '\nThe party has been defeated.'
                 in_combat = False
                 break
             
             # ends combat if all monsters are dead
             elif CF.monsters_are_dead(monsters):
-                print 'The party is victorious!'
+                print '\nThe party is victorious!'
                 in_combat = False
 
                 # total exp gains grants to live party
@@ -99,11 +99,11 @@ def start_combat(Party, console=CONSOLE):
 
             # check for available commands
             else:
-                print '%s\'s turn' % member.name
+                print '\n%s\'s turn' % member.name
                 
                 # PARTY LOGIC
                 if member in party:
-                    CI.interface(party, monsters)
+                    CI.interface(member, monsters)
                 
                 # MONSTER LOGIC
                 else:
@@ -115,21 +115,22 @@ def start_combat(Party, console=CONSOLE):
                     else:
                         target = member.choose_target(party)
                         damage = member.attack(target)
-                        
                         print '%s attacks %s for %d damage!' % (member.name, target.name, damage)
-            
+                        if target.is_dead:
+                            print '%s has been killed!' % target.name                        
             
             # END TURN FOR-LOOP
 
 
-        # test block to end combat
+        # test block to end combat inside while loop
         if TESTING:
             for m in monsters:
                 m.is_dead = True
-            print '\nend combat testing'
         # end test block
     
         # clears pre-emptive status
         pre_emp = 0
-    
+
     # END ROUND WHILE-LOOP
+    
+    if TESTING: print '\nEnd combat testing'
