@@ -4,10 +4,11 @@
 """
 
 import combat_functions as CF
+import subprocess
 from config import *
 
 
-# def interface(hero, mosnters):
+# The main interface call
 def interface(hero, monsters):
     commands = [
         'Attack',
@@ -21,12 +22,20 @@ def interface(hero, monsters):
     if CONSOLE:
         enum_commands = print_commands(commands)
         player_command = accept_command(enum_commands)
+        
         if player_command == 'Attack':
             target = target_monster(monsters)
             damage = hero.attack(target)
-            print '%s attacks %s for %d damage!' % (hero.name, target.name, damage)
+            print '\n%s attacks %s for %d damage!' % (hero.name, target.name, damage)
             if target.is_dead:
-                print '%s has been killed!' % target.name 
+                print '\n%s has been killed!' % target.name
+        
+        # elif player_command == 'Spell':
+        elif player_command == 'Defend':
+            hero.is_defending = True
+            print '\n%s is defending!' % hero.name
+        # elif player_command == 'Item':
+        # elif player_command == 'Run':
 
 
 # Prints available commands and returns an enumerated list
@@ -88,6 +97,7 @@ def target_monster(monsters):
             len(live_monsters)+1),
         live_monsters
         )
+    print ''
     for monster in live_monsters:
         print monster[0], ':', monster[1]
     
@@ -100,6 +110,15 @@ def target_monster(monsters):
     
     return live_monsters[choice-1][1]
         
-        
-# this is the logic to actually execute the issued command
-# def execute_command(hero, target, command):
+
+# Clears the screen        
+def cls():
+    subprocess.call("cls", shell=True)
+
+
+# Prints out member stats
+# Accepts a list of  members
+def print_stats(members):
+    print ' | '.join(('{: >10}'.format(m.name) for m in members))
+    print ' | '.join(('{: >10}'.format('HP ' + str(m.hp) + '/' + str(m.stats['max_hp'])) for m in members))
+    print ' | '.join(('{: >10}'.format('AP ' + str(m.ap) + '/' + str(m.stats['max_ap'])) for m in members))
