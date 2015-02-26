@@ -36,7 +36,7 @@ def start_combat(Party, console=CONSOLE):
     # pre-emptive fight type
     pre_emp = CF.pre_emptive()
     
-    if TESTING and pre_emp:
+    if console and pre_emp:
         print '\nPRE-EMPTIVE BATTLE!'
 
     # START ROUND LOOP
@@ -75,6 +75,8 @@ def start_combat(Party, console=CONSOLE):
                 exp = CF.get_exp(monsters)
                 gold = CF.get_gold(monsters)
                 print 'The Party gains %s EXP and %s GOLD' % (exp, gold)
+                Party.gold += gold
+                
                 for p in party:
                     if not p.is_dead:
                         p.EXP += exp
