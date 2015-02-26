@@ -98,6 +98,10 @@ def start_combat(Party, console=CONSOLE):
                 
                 # PARTY LOGIC
                 if member in party:
+                    
+                    # Clears the defending flag
+                    member.is_defending = False
+                    
                     CI.interface(member, monsters)
                 
                 # MONSTER LOGIC
@@ -114,12 +118,9 @@ def start_combat(Party, console=CONSOLE):
                         if target.is_dead:
                             print '%s has been killed!' % target.name                        
             
-            raw_input('\npress ENTER to continiue')
+            raw_input('\npress ENTER')
             # END TURN FOR-LOOP
             
-        # Clears any defending flags of all party members
-        for p in party:
-            p.is_defending = False
         
 
 
