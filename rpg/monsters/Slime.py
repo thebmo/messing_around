@@ -19,6 +19,6 @@ class Slime(Monster, NPC):
         'max_hp': 5,
         'max_ap': 0,
         'level': 1,
-        'exp': 1,
-        'gold': 5,
+        'exp': 5,
+        'gold': 3,
         }

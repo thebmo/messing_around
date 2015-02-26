@@ -19,6 +19,6 @@ class Imp(Monster, NPC):
         'max_hp': 6,
         'max_ap': 1,
         'level': 2,
-        'exp': 2,
+        'exp': 6,
         'gold': 8,
         }
