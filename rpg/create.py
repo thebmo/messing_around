@@ -18,7 +18,7 @@ def create_hero():
 
         # asks for name input and varivies name < 8 Chars
         while(len(name) <1 or len(name) > 8) or ' ' in name:
-            name =raw_input('Enter the hero\'s name (8 or less characters): ')
+            name = raw_input('Enter the hero\'s name (8 or less characters): ')
 
         # asks for class number and makes sure is valid choice
         while(character_class not in ['1','2','3','4']):
@@ -63,13 +63,14 @@ def create_party():
 
         add_more = ''
         while(len(add_more)<1 and len(party) < MAX_PARTY):
-            add_more = raw_input('Add more party members (4 max)? (y/n)').lower()
+            add_text = 'Add more party members (%d max)? (y/n): ' % MAX_PARTY
+            add_more = raw_input(add_text).lower()
             if len(add_more) < 1:
                 continue
             elif add_more[0] != 'y' and add_more[0] != 'n':
                 add_more = ''
                     
-        if add_more[0] == 'y':
+        if add_more and add_more[0] == 'y':
             print '\n'
             continue
         else:
