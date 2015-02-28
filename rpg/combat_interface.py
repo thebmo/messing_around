@@ -72,7 +72,8 @@ def accept_command(c_enum):
             choice = int(choice)
         
         except Exception as e:
-            print e
+            # print e
+            pass
 
     # print 'You chose: %s ' % c_enum[choice-1][1]
     
