@@ -17,14 +17,14 @@ from config import *          # for global settings
 # Main call to initiate combat.
 # Party: party object (contains a list of hero objects)
 # console: param to dictate if in a console window
-def start_combat(Party, console=CONSOLE):
+def start_combat(Party, console=CONSOLE, monster_list=[], count=0):
     
     # converts the party object list into a local copy
     party = Party.heroes
     
     # initializes combat variables
     in_combat = True
-    monsters = CF.random_encounter(console=console)
+    monsters = CF.random_encounter(console=console, monster_pool=monster_list, m_count=count)
     initiatives = CF.determine_initiative(party, monsters)
     # end combat initialization
 

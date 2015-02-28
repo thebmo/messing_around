@@ -9,17 +9,26 @@ from random import randrange, choice
 
 
 # determines which monsters attack the party
-def random_encounter(console=False, max_monsters=4):
+def random_encounter(console=False, max_monsters=4, monster_pool=[], m_count=0):
     
-    # this will be dynamically extended
-    monster_pool = [''.join((m[0].upper(), m[1:])) for m in MONSTERS]
-    m_count = randrange(max_monsters)+1
-    monsters = []
+    # Creates the monster pool
+    # If no specified monster, loads all monsters to the monster pool
+    if monster_pool:
+        monster_pool = [''.join((m[0].upper(), m[1:])) for m in monster_pool if m.lower() in MONSTERS]
+
+    if not monster_pool:
+        monster_pool = [''.join((m[0].upper(), m[1:])) for m in MONSTERS]
     
-    # chooses monsters from the monster pool
+    # How many monsters to fetch for combat
+    if not m_count:
+        m_count = randrange(max_monsters)+1
+    
+    # Chooses monsters from the monster pool
+    monsters=[]
     for i in range(m_count):
         monsters.append(choice(monster_pool))
-        
+
+    # Converts the monster list to objects
     monsters = fetch_monsters(monsters)
     
     if console:
@@ -30,7 +39,7 @@ def random_encounter(console=False, max_monsters=4):
     return monsters
 
 
-# takes a list of monsters as string and returns a list of monster
+# Takes a list of monsters as string and returns a list of monster
 # objects
 def fetch_monsters(monsters):
     monster_objects = []
@@ -46,7 +55,7 @@ def fetch_monsters(monsters):
     return monster_objects
 
 
-# calculates and returns a list of tuples containing
+# Calculates and returns a list of tuples containing
 # sorted monster and party initiatives
 # Ex:
 #   (party or monster, object list index, initiative roll)

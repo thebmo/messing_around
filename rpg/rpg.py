@@ -10,9 +10,9 @@ def main():
     parser.add_argument('-l', '--levels', metavar='L', dest='levels',
         type=int, help='sets the number of levels to boost the party')
     parser.add_argument('-c', '--count', metavar='C', dest='count',
-        type=int, help='sets the number of monsters')
+        type=int, default=0, help='sets the number of monsters')
     parser.add_argument('-m', '--monsters', metavar='M', dest='monsters',
-        help='sets the type of monsters')
+        help='sets the type of monsters (comma separated)')
         
     parser.add_argument('-s', '--save',
         help='saves the party after combat', action='store_true')    
@@ -28,7 +28,17 @@ def main():
     if args:
         if args.levels: print 'level boost:', args.levels
         if args.count: print 'monster count:', args.count
-        if args.monsters: print 'loading:', args.monsters
+        if args.monsters:
+            if ',' in args.monsters:
+                monsters = args.monsters.split(',')
+            else:
+                monsters = [args.monsters]
+            
+            print 'loading:', monsters
+        else:
+            monsters = []
+            
+            
         print 'save:', args.save
         print 'new party', args.new
         print 'print stats', args.stats
@@ -52,7 +62,7 @@ def main():
 
     # Starts combat
     raw_input('starting combat...')
-    combat.start_combat(party)
+    combat.start_combat(party, monster_list=monsters, count=args.count)
     if args.stats:
         party.print_stats()
         print '\nGOLD:', party.gold
