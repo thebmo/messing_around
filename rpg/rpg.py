@@ -7,11 +7,11 @@ import cPickle as pickle
 def main():
     # Parser options
     parser = argparse.ArgumentParser(description='Process arguments')
-    parser.add_argument('-l', '--levels', dest='levels',
+    parser.add_argument('-l', '--levels', metavar='L', dest='levels',
         type=int, help='sets the number of levels to boost the party')
-    parser.add_argument('-c', '--count', dest='count',
+    parser.add_argument('-c', '--count', metavar='C', dest='count',
         type=int, help='sets the number of monsters')
-    parser.add_argument('-m', '--monsters', dest='monsters',
+    parser.add_argument('-m', '--monsters', metavar='M', dest='monsters',
         help='sets the type of monsters')
         
     parser.add_argument('-s', '--save',
