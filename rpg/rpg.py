@@ -20,6 +20,8 @@ def main():
         help='creates a fresh party on startup', action='store_true')
     parser.add_argument('-p', '--stats',
         help='prints party stats after combat', action='store_true')
+    parser.add_argument('--heal', action='store_true',
+        help='heals the party to full before combat')
 
     args = parser.parse_args()
     # End parser options
@@ -30,9 +32,9 @@ def main():
         if args.count: print 'monster count:', args.count
         if args.monsters:
             if ',' in args.monsters:
-                monsters = args.monsters.split(',')
+                monsters = args.monsters.lower().split(',')
             else:
-                monsters = [args.monsters]
+                monsters = [args.monsters.lower()]
             
             print 'loading:', monsters
         else:
@@ -43,9 +45,7 @@ def main():
         print 'new party', args.new
         print 'print stats', args.stats
     
-    
 
-    
     #Loads the specified party
     if args.new:
         P_FILE = 'new.p'
@@ -59,7 +59,11 @@ def main():
     if args.levels:
         for r in range(args.levels):
             party.level_up()
-
+    
+    # Heals party
+    if args.heal:
+        party.heal()
+    
     # Starts combat
     raw_input('starting combat...')
     combat.start_combat(party, monster_list=monsters, count=args.count)
@@ -70,16 +74,8 @@ def main():
     # Saves the party if specified
     if args.save:
         pickle.dump(party, open('party.p', 'wb'))
-    
+
+
 if __name__ == '__main__':
     main()
     
-    
-
-
-
-# import argparse
-# parser = argparse.ArgumentParser()
-# parser.add_argument('-v', "--verbose", help="increase output verbosity", action='store_true')
-# args = parser.parse_args()
-# print args.verbose
