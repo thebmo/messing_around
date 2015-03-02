@@ -1,0 +1,1 @@
+__all__ = ['fighter', 'cleric', 'rogue', 'wizard']
