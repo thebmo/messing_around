@@ -4,7 +4,7 @@
 """
 
 
-TESTING = True
+TESTING = False
 CONSOLE = True
 MAX_MONSTERS = 4
 MAX_PARTY = 4
