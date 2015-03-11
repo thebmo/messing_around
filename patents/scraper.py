@@ -20,6 +20,7 @@ def main():
         'Terms of Service',
         'About Google Patents',
         'Send feedback',
+        'Sitemap',
         }
 
     for link in soup.find_all('a'):
@@ -30,6 +31,7 @@ def main():
 
 
     pickle.dump(directory, open(P_FILE, 'wb'))
+    print_out(directory)
 
 
 # takes a key, returns a dict
@@ -55,6 +57,19 @@ def get_next_dict(old_key, url, black_list):
     
     return new_dict
 
+
+# prints dict keys out to file
+def print_out(d):
+    with open('test.txt', 'w') as t:
+        for k in d:
+            t.write(k[0].encode('utf-8').strip())
+            t.write('\n')
+            for k2 in d[k]:
+                t.write('\t')
+
+                t.write(k2[0].encode('utf-8').strip())
+                t.write('\n')
+            
     
 if __name__ == '__main__':
     main()
