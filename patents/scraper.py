@@ -1,3 +1,4 @@
+import argparse
 import cPickle as pickle
 import urllib2
 from bs4 import BeautifulSoup
@@ -5,10 +6,21 @@ from datetime import datetime
 
 
 def main():
+    P_FILE = 'patents.p'
+    
+    parser = argparse.ArgumentParser(description='Process arguments')
+    parser.add_argument('-p', '--print_out',
+        help='prints the dict to the text file', action='store_true')
+    args = parser.parse_args()
+    
+    if args.print_out:
+        d = pickle.load(open(P_FILE, 'rb'))
+        print_out(d)
+        return 0
+    
     start = datetime.now()
     print 'start: ', start
     
-    P_FILE = 'patents.p'
 
     SITE_URL = 'http://www.google.com/patents/sitemap/en/'
     current_url = SITE_URL + 'Sitemap.html'
@@ -100,12 +112,18 @@ def print_out(d):
             t.write('\n')
             
             for k2 in d[k]:
-                k2_str = "".join((k2[0].encode('utf-8').strip(), '[', k2[1].encode('utf-8').strip(), ']'))
+                k2_str = "".join((k2[0].encode('utf-8').strip(), ' [', k2[1].encode('utf-8').strip(), ']'))
                 t.write('\t')
 
                 t.write(k2_str)
                 t.write('\n')
-            
+                
+                for k3 in d[k][k2]:
+                    k3_str = "".join((k3[0].encode('utf-8').strip(), ' [', k3[1].encode('utf-8').strip(), ']'))
+                    t.write('\t\t')
+
+                    t.write(k3_str)
+                    t.write('\n')
     
 if __name__ == '__main__':
     main()
