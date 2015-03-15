@@ -54,6 +54,9 @@ def main():
         if link.text in black_list:
             continue
         key = (str(link.text), link.get('href'))
+        
+        print '\nstarting:', key[0]
+        
         directory[key] = get_next_dict(key, SITE_URL, black_list)
         
         # breaks if param is set in args
@@ -101,12 +104,12 @@ def get_next_dict(old_key, url, black_list):
                 last_dir = old_key[1].split('/')[0]
                 next_url = new_url.replace(old_key[-1], last_dir)
                 
-                print '\nurl: ', url
-                print 'last dir:', last_dir
-                print 'old_key[1]:', old_key[1]
-                print 'new_url before:', new_url
-                print 'next key', key[1]
-                print 'next_url:', next_url
+                # print '\nurl: ', url
+                # print 'last dir:', last_dir
+                # print 'old_key[1]:', old_key[1]
+                # print 'new_url before:', new_url
+                # print 'next key', key[1]
+                # print 'next_url:', next_url
                 
                 # '_' statement to limit page links
                 # url == next_url to prevent infinite loops
@@ -119,7 +122,6 @@ def get_next_dict(old_key, url, black_list):
             e_time = datetime.now()
             print '\n\n', e_time
             print e, ':', next_url
-            raw_input()
             return '0'
             pass
 
