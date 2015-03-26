@@ -8,24 +8,16 @@ from datetime import datetime
 
 CWD = os.getcwd()
 fLOGS = 'fred_logs.html'
-if os.path.exists(os.path.join(CWD, fLOGS)):
-    os.remove(fLOGS)
+tLOGS = 'temp_logs.html'
+PATTERNS = [
+    'https?.*\w',
+    '\[\d+:\d+\]',
+    '\[<>-:\(\)\*\^\~\]',
+    'Fred Bot2',
+    ]
 
 
-'''
-    patterns to remove:
-    [#.:#.]
-    <
-    >
-    htt?p.*\b
-    :
-    --
-    *
-    ^
-    (
-    )
-    Fred Bot2
-'''
+
 
 def main():
     
@@ -34,11 +26,17 @@ def main():
         help='excludes the bLogs', action='store_false')
     parser.add_argument('-e', '--eLogs',
         help='excludes the eLogs', action='store_false')
+    parser.add_argument('-f', '--format',
+        help='strips the patterns from the logs', action='store_false')
 
     args = parser.parse_args()
     
     start = datetime.now()
     print 'Starting to compile logs at: {}'.format(start)
+
+    if args.bLogs or args.eLogs:
+        if os.path.exists(os.path.join(CWD, fLOGS)):
+            os.remove(fLOGS)
     
     # JMThree Log Creds
     LOGIN = os.environ['LOGS_UN']
@@ -55,7 +53,7 @@ def main():
     # JMThree Logs
     if args.bLogs:
         b_start = datetime.now()
-        print 'Starting JMThree logs at: {}'.format(b_start)
+        print '\nStarting JMThree logs at: {}'.format(b_start)
         
         try:
             request = urllib2.Request(URL)
@@ -79,7 +77,7 @@ def main():
                         logs.write('\n')
                 
             b_finish = datetime.now()
-            print ' Finished JMThree logs at: {}'.format(b_finish)
+            print 'Finished JMThree logs at: {}'.format(b_finish)
             print 'Elapsed time for JM3 logs: {}'.format(b_finish - b_start)
             
         except urllib2.HTTPError as e:
@@ -95,7 +93,7 @@ def main():
     # eJohn Logs
     if args.eLogs:
         e_start = datetime.now()
-        print 'Starting JMThree logs at: {}'.format(e_start)
+        print '\nStarting eJohn logs at: {}'.format(e_start)
         
         try:
             
@@ -120,7 +118,7 @@ def main():
                     logs.write('\n')
 
             e_finish = datetime.now()
-            print '     Finished eJohn logs at: {}'.format(e_finish)
+            print 'Finished eJohn logs at: {}'.format(e_finish)
             print 'Elapsed time for eJohn logs: {}'.format(e_finish - e_start)
             
         except Exception as e:
@@ -129,10 +127,42 @@ def main():
             pass
     # End eJohn logs
     
+    if args.format:
+        strip_logs(fLOGS, tLOGS, PATTERNS)
+    
+    finish = datetime.now() 
+    print '\nEnd time at: {}\nTotal elapsed time: {}'.format(finish, (finish - start))
+
+
+# Strips the log of the patterns provided
+def strip_logs(fLOGS, tLOGS, PATTERNS):
+    
+    start = datetime.now()
+    print '\nStarting document stripping at: {}'.format(start)
+    
+    logs = open(fLOGS,'r').readlines()
+    with open(tLOGS, 'w') as T:
+        for line in logs:
+            matches = []
+            for p in PATTERNS:
+                matches += re.findall(p, line) 
+            
+            if matches:
+                for match in matches:
+                    line = line.replace(match, '')
+                    
+                    
+            if line != '\n':
+                T.write(line.strip(' '))
+                
+
+    os.remove(fLOGS)
+    os.rename(tLOGS, fLOGS)    
     
     finish = datetime.now()
-    
-    print '\nEnd time at: {}\nTotal elapsed time: {}'.format(finish, (finish - start))
+    print 'Finished document stripping at: {}'.format(finish)
+    print 'Elapsed stripping time: {}'.format(finish - start)
+
 
 if __name__ == '__main__':
     main()
