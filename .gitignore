@@ -1,3 +1,6 @@
 *.pyc
 *.p
+*.htm
+*.html
 rpg/backup/*
+markov.py
