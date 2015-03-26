@@ -7,9 +7,10 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 CWD = os.getcwd()
-bLOGS = 'fred_logs_butters.html'
-eLOGS = 'fred_logs_ejohn.html'
-tLOGS = 'temp_logs.html'
+fLOGS = 'fred_logs.html'
+if os.path.exists(os.path.join(CWD, fLOGS)):
+    os.remove(fLOGS)
+
 
 '''
     patterns to remove:
@@ -18,11 +19,15 @@ tLOGS = 'temp_logs.html'
     >
     htt?p.*\b
     :
-    \-.
+    --
+    *
+    ^
+    (
+    )
+    Fred Bot2
 '''
 
 def main():
-    
     
     parser = argparse.ArgumentParser(description='Process arguments')
     parser.add_argument('-b', '--bLogs',
@@ -31,19 +36,14 @@ def main():
         help='excludes the eLogs', action='store_false')
 
     args = parser.parse_args()
-    if args:
-        print 'bLogs:', args.bLogs
-        print 'eLogs:', args.eLogs
-    return 0
     
     start = datetime.now()
     print 'Starting to compile logs at: {}'.format(start)
     
-    # # JMThree Log Creds
-    # LOGIN = os.environ['LOGS_UN']
-    # PWD = os.environ['LOGS_PW']
-    # URL = 'http://wtpa.jmthree.com/buttlog/?query='
-    # url = ''.join((URL, q))
+    # JMThree Log Creds
+    LOGIN = os.environ['LOGS_UN']
+    PWD = os.environ['LOGS_PW']
+    URL = 'http://wtpa.jmthree.com/buttlog/?query=Fred'
     
     # eJohn Log Creds
     eLOGIN = os.environ['eLOGS_UN']
@@ -52,65 +52,87 @@ def main():
      
 
     
-    # # JMThree Logs
-    # try:
-        # request = urllib2.Request(url)
-        # base64string = base64.encodestring('%s:%s' % (LOGIN, PWD)).replace('\n', '')
-        # request.add_header("Authorization", "Basic %s" % base64string)   
-        # result = urllib2.urlopen(request)
-
-        # html = result.readline()
-        # result.close()
-
-        # soup = BeautifulSoup(html)
-
-        # # stuffs all entries into a list
-        # for line in soup.select("tr"):
-            # entry = line.get_text(' ', strip=True)
-            # entries.append(entry)
-
-    # except urllib2.HTTPError as e:
-        # if '404' in e:
-            # phenny.say('Too many searches, please wait a while')
-        # else:
-           # e = str(e) + ' | Search must be 4 or more characters for butt log'
-           # phenny.msg(input.nick, e)
-           # # return
-        # pass
-    # # END JM3 logs
-
-
-    
-    try:
+    # JMThree Logs
+    if args.bLogs:
+        b_start = datetime.now()
+        print 'Starting JMThree logs at: {}'.format(b_start)
         
-        passman = urllib2.HTTPPasswordMgrWithDefaultRealm()
-        passman.add_password(None, eURL, eLOGIN, ePWD)
-        authhandler = urllib2.HTTPBasicAuthHandler(passman)
-        opener = urllib2.build_opener(authhandler)
-        urllib2.install_opener(opener)
-        results = urllib2.urlopen(eURL)
+        try:
+            request = urllib2.Request(URL)
+            base64string = base64.encodestring('%s:%s' % (LOGIN, PWD)).replace('\n', '')
+            request.add_header("Authorization", "Basic %s" % base64string)   
+            results = urllib2.urlopen(request)
 
-        html = results.read()
-        results.close()
+            html = results.read()
+            results.close()
+            
+                
+
+            soup = BeautifulSoup(html)
+
+            with open(fLOGS, 'a') as logs:
+ 
+                for line in soup.select("tr"):
+                    entry = line.get_text(' ', strip=True).split(' ', 3)
+                    if entry[2] == 'Fred':
+                        logs.write(entry[3])
+                        logs.write('\n')
+                
+            b_finish = datetime.now()
+            print ' Finished JMThree logs at: {}'.format(b_finish)
+            print 'Elapsed time for JM3 logs: {}'.format(b_finish - b_start)
+            
+        except urllib2.HTTPError as e:
+            if '404' in e:
+                print 'Too many searches, please wait a while'
+            else:
+               e = str(e) + ' | Search must be 4 or more characters for butt log'
+               print e
+            pass
+    # END JM3 logs
+
+
+    # eJohn Logs
+    if args.eLogs:
+        e_start = datetime.now()
+        print 'Starting JMThree logs at: {}'.format(e_start)
         
-        freds = '&lt;Fred&gt;.*'
-        matches = re.findall(freds, html)
-        with open(eLOGS, 'w') as logs:
-            for match in matches:
-                clean_match = BeautifulSoup(match).get_text(' ', strip=True)
-                clean_match = clean_match.replace('<Fred> ', '')
-                logs.write(clean_match)
-                logs.write('\n')
+        try:
+            
+            passman = urllib2.HTTPPasswordMgrWithDefaultRealm()
+            passman.add_password(None, eURL, eLOGIN, ePWD)
+            authhandler = urllib2.HTTPBasicAuthHandler(passman)
+            opener = urllib2.build_opener(authhandler)
+            urllib2.install_opener(opener)
+            results = urllib2.urlopen(eURL)
 
-    except Exception as e:
-        e_str = ''.join(('ejohn error | ', str(e)))
-        print e_str
-        pass
+            html = results.read()
+            results.close()
+            
+            freds = '&lt;Fred&gt;.*'
+            matches = re.findall(freds, html)
+            
+            with open(fLOGS, 'a') as logs:
+                for match in matches:
+                    clean_match = BeautifulSoup(match).get_text(' ', strip=True)
+                    clean_match = clean_match.replace('<Fred> ', '')
+                    logs.write(clean_match)
+                    logs.write('\n')
+
+            e_finish = datetime.now()
+            print '     Finished eJohn logs at: {}'.format(e_finish)
+            print 'Elapsed time for eJohn logs: {}'.format(e_finish - e_start)
+            
+        except Exception as e:
+            e_str = ''.join(('ejohn error | ', str(e)))
+            print e_str
+            pass
+    # End eJohn logs
     
     
     finish = datetime.now()
     
-    print 'End time at: {}\nElapsed time: {}'.format(finish, (finish - start))
+    print '\nEnd time at: {}\nTotal elapsed time: {}'.format(finish, (finish - start))
 
 if __name__ == '__main__':
     main()
