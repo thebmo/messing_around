@@ -1,3 +1,4 @@
+import argparse
 import base64
 import os
 import re
@@ -10,7 +11,30 @@ bLOGS = 'fred_logs_butters.html'
 eLOGS = 'fred_logs_ejohn.html'
 tLOGS = 'temp_logs.html'
 
+'''
+    patterns to remove:
+    [#.:#.]
+    <
+    >
+    htt?p.*\b
+    :
+    \-.
+'''
+
 def main():
+    
+    
+    parser = argparse.ArgumentParser(description='Process arguments')
+    parser.add_argument('-b', '--bLogs',
+        help='excludes the bLogs', action='store_false')
+    parser.add_argument('-e', '--eLogs',
+        help='excludes the eLogs', action='store_false')
+
+    args = parser.parse_args()
+    if args:
+        print 'bLogs:', args.bLogs
+        print 'eLogs:', args.eLogs
+    return 0
     
     start = datetime.now()
     print 'Starting to compile logs at: {}'.format(start)
